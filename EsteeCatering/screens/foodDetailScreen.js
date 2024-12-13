@@ -1,20 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet} from "react-native";
+import {FoodContext} from "../Providers/FoodProvider";
 
 const FoodDetailScreen = ({ route }) => {
     const { item } = route.params;
-    const [quantity, setQuanitity] = useState(1);
+    const [quantity, setQuantity] = useState(item.quantitySelected || 1);
+    const { addItemToCart, cartItems} = useContext(FoodContext);
 
-    const increaseQuantity = () => setQuanitity(quantity + 1)
 
-    const decreaseQuantity = () => {
-        if(quantity > 1) setQuanitity(quantity - 1)
+    //increase and decrease quantity, quanity is the state variable.
+    const increaseQuantity = () => {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+        console.log("Quantity increased, new quantity: ", quantity);
     }
 
+    const decreaseQuantity = () => { setQuantity((prev) => (prev > 1 ? prev - 1 : prev)); 
+      console.log("Quantity decreased, new quantity: ", quantity);
 
+    }//ternary operator to check if the quantity is greater than 1, if so decrease it by 1, if not return the previous value
+
+    //add to cart function
+    const addToCart = () => {
+      console.log('Adding cart with quanity: ', quantity);
+        addItemToCart({ ...item, quantitySelected: quantity });
+         console.log('Cart quanity now: ', cartItems.length); //log the cart items length
+      }
+
+      
     return  (
         <View style={StyleSheet.container}>
-
             <View style={styles.header}>
         <Text style={styles.title}>{item.name}</Text>
       </View>
@@ -31,6 +45,7 @@ const FoodDetailScreen = ({ route }) => {
             <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
               <Text style={styles.quantityButtonText}>−</Text>
             </TouchableOpacity>
+
             <Text style={styles.quantity}>{quantity}</Text>
             <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
               <Text style={styles.quantityButtonText}>+</Text>
@@ -44,7 +59,7 @@ const FoodDetailScreen = ({ route }) => {
         </View>
 
          {/* Add to Cart Button */}
-         <TouchableOpacity style={styles.addToCartButton}>
+         <TouchableOpacity  onPress={addToCart} style={styles.addToCartButton}>
           <Text style={styles.addToCartText}>Add to Cart</Text>
         </TouchableOpacity>
 

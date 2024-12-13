@@ -1,52 +1,22 @@
 //user can just browse the food items made and see the price wihtout making an ordr
 //well the user will see the items displayed here, and cana ctually add to order.
 
-import React from 'react';
-import { View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import React, {useContext} from 'react';
+import { View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
 import FoodItem from '../customComponents/FoodItem'; // Import the custom FoodItem component
 import { useNavigation } from '@react-navigation/native';
 import icon from '../assets/images/favicon.png'
-const foodData = [
-  {
-    id: '1',
-    imageUrl: icon,
-    price: '12.99',
-    foodName: 'Chicken Sandwich',
-    description: 'Delicious chicken sandwich crafted with all the right flavors',
-  },
-  {
-    id: '2',
-    imageUrl: icon,
-    foodName: 'Vegan Salad',
-    price: '8.99',
-    description: 'This salad is perfect for vegans and tasts great',
-  },
-  {
-    id: '3',
-    imageUrl: icon,
-    foodName: 'Steak',
-    price: '14.99',
-    description: 'juicy tender steak to be eaten',
-  },
-  {
-    id: '4',
-    imageUrl: icon,
-    price: '9.99',
-    foodName: 'Sushi',
-    description: 'Fresh Sushi Platter',
-  },
-  // Add more food items here...
-];
-
-
+import {FoodContext} from "../Providers/FoodProvider";
 
 const FoodItemsScreen = () => {
+
+const {foodItems} = useContext(FoodContext);
 
 const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <FlatList
-      data={foodData} //the data here!!
+      data={foodItems} //the data here!!
         renderItem={({ item }) => (
 
           <TouchableOpacity

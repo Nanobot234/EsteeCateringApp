@@ -15,10 +15,18 @@ const FoodItem = ({ imageUrl, price, foodName, description, quantitySelected}) =
       <Text style={styles.price}>${price}</Text>
       <Text style={styles.name}>{foodName}</Text>
       <Text style={styles.name}>{description}</Text>
+       {/* Render quantity */}
+       {quantitySelected !== undefined && (
+        <Text style={styles.quantity}>Quantity: {quantitySelected}</Text>
+      )}
+
     </View>
+
+
   );
 };
 
+ 
 const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
