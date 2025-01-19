@@ -2,26 +2,24 @@
 //uCreating contect here
 import React, { createContext, useEffect, useState } from 'react';
 import { saveCartItems, getCartItems, clearCart } from '../Utils/storage';
-
+import FoodItem from '../models/FoodItem'
 
 export const FoodContext = createContext();
 
 export const FoodProvider = ({ children }) => {
     //array of available food items to order from, will be updated only be admin or Esther  in this case
     const [foodItems, setFoodItems] = useState([
-      { id: '23', imageUrl: '...', price: 10.49, foodName: 'Pizza', description: 'Delicious pizza', quantitySelected: 0 },
-
-      { id: '5', imageUrl: '...', price: 15, foodName: 'Burger', description: 'Juicy burger', quantitySelected: 0 },
-      // Add more items
-      { id: '6', imageUrli: '...', price: 15, foodName: 'Salad', description: 'Healthy Salad', quantitySelected: 0 }
+      new FoodItem({id:'23', imageURL:'', price:10.49, foodName:'Pizza', description:'Delicious pizza', quantitySelected:0}),
+      new FoodItem({id: '5', imageURL: '...', price: 12, foodName: 'Burger', description: 'Juicy burger', quantitySelected: 0}),
+      new FoodItem({id: '6', imageURL: '...', price: 15, foodName: 'Salad', description: 'Healthy Salad', quantitySelected: 0}),
     ]);
+    //the above array will be a an array of Food items too, need to fix that
     
-    const [cartItems, setCartItems] = useState([]); // Initialize the cartItems state
+    const [cartItems, setCartItems] = useState([FoodItem]); // Initialize the cartItems state
     //why never here!!
 
     // Load the cart items from storage when the component mounts
     useEffect(() => {
-      
       getCartItems().then((items) => setCartItems(items)); // Load the cart items from storage
       console.log('Cart items loaded: ', cartItems.length);
   }, []);  // Run only once when the component mounts
@@ -29,6 +27,14 @@ export const FoodProvider = ({ children }) => {
 
 
     //add items to the cart, and checks for duplicates. If the item is already in the cart, it will update the quantity.
+    /**
+     * Adds an item to the cart. If the item already exists in the cart, it updates the quantity.
+     * Otherwise, it adds the new item to the cart.
+     *
+     * @param {Object} item - The item to be added to the cart.
+     * @param {number} item.id - The unique identifier of the item.
+     * @param {number} item.quantitySelected - The quantity of the item to be added.
+     */
     const addItemToCart = (item) => {
 
     //never problem here
@@ -48,7 +54,6 @@ export const FoodProvider = ({ children }) => {
             // Add new item to the cart
 
             updatedCart = [...prevCart, { ...item, quantitySelected: item.quantitySelected }]; 
-            //something going on here tho!! not sure!!
           }
           saveCartItems(updatedCart); // Save the updated cart to storage
           return updatedCart;
@@ -100,15 +105,19 @@ const increasCartItemQuantity = (itemId) => {
         });
       }
     
-      // Clear the entire cart
+
+      /**
+       * Clears the cart by setting the cart items to an empty array and 
+       * calling the clearCart function to clear the cart in storage.
+       */
       const clearCart = () => {
         setCartItems([]);
         clearCart(); // Clear the cart in storage
       };
 
-        //admin functions
+      //add new food item to the food array
     const addNewFoodItem = (newItem) => {
-        setFodItems((prevItems) => [...prevItems, newItem]); // Append the new item to the array
+        setFoodItems((prevItems) => [...prevItems, newItem]); // Append the new item to the array
       };
 
       //remove item from food array

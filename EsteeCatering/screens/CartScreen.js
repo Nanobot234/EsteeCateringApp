@@ -1,66 +1,40 @@
-import React, { useContext } from 'react';
-import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { FoodContext } from '../Providers/FoodProvider'; // Import the FoodContext
-import { MaterialIcons } from '@expo/vector-icons';
-
+import React, { useContext, useState } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { FoodContext } from '../Providers/FoodProvider';
+import CartItem from '../customComponents/CartItem';
+import OrderPlacementScreen from '../screens/OrderPlacementScreen';
 
 const CartScreen = () => {
-  const { cartItems, removeItemFromCart, decreaseCartItemQuantity, increasCartItemQuantity} = useContext(FoodContext); // Access cartItems from context
+  const { cartItems, removeItemFromCart, decreaseCartItemQuantity, increasCartItemQuantity } = useContext(FoodContext);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  // Render each cart item
   const renderCartItem = ({ item }) => (
-    // Render each cart item
-    <View style={styles.cartItem}>
-      {/* Item Image */}
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
-      {/* Item Details */}
-      <View style={styles.details}>
-        <Text style={styles.name}>{item.foodName}</Text>
-        <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-        <Text>Quantity: {item.quantitySelected}</Text>
-
-    
-    {/* Increase and Decrease Buttons */}
-    <View style={styles.buttonRow}>
-        <TouchableOpacity
-          onPress={() => decreaseCartItemQuantity(item.id)}
-          style={styles.iconButton}
-        >
-          <MaterialIcons name="remove" size={24} color="#ff5252" />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => increasCartItemQuantity(item.id)}
-          style={styles.iconButton}
-        >
-          <MaterialIcons name="add" size={24} color="#4caf50" />
-        </TouchableOpacity>
-      </View>
-    </View>
-        {/* Remove Button */}
-      <TouchableOpacity onPress={() => removeItemFromCart(item.id)} style={styles.trashButton}>
-        <MaterialIcons name="delete" size={16} color="#ff5252" />
-        </TouchableOpacity>
-    </View>
+    <CartItem
+      item={item}
+      onDecrease={decreaseCartItemQuantity}
+      onIncrease={increasCartItemQuantity}
+      onRemove={removeItemFromCart}
+    />
   );
 
   return (
     <View style={styles.container}>
-      {/* Check if cart is empty */}
-      {cartItems.length == 0 ? (
+      {cartItems.length === 0 ? (
         <Text style={styles.emptyText}>Your cart is empty.</Text>
       ) : (
         <View>
-        <FlatList
-          data={cartItems} // Use cartItems array
-          renderItem={renderCartItem} // Render each item
-          keyExtractor={(item) => item.id} // Ensure each item has a unique key
-        />
-        <TouchableOpacity style={styles.checkOutButton}>
+          <FlatList
+            data={cartItems}
+            renderItem={renderCartItem}
+            keyExtractor={(item) => item.id.toString()}
+          />
+          <TouchableOpacity style={styles.checkOutButton} onPress={() => setIsModalVisible(true)}>
             <Text>Create Order</Text>
-        </TouchableOpacity>
-
-       {}
+          </TouchableOpacity>
+          <OrderPlacementScreen
+            visible={isModalVisible}
+            onClose={() => setIsModalVisible(false)}
+          />
         </View>
       )}
     </View>
@@ -73,58 +47,17 @@ const styles = StyleSheet.create({
     padding: 16,
     backgroundColor: '#f8f9fa',
   },
-  cartItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 12,
-    marginVertical: 8,
-    backgroundColor: '#ffffff',
-    borderRadius: 8,
-    elevation: 1, // Adds a subtle shadow on Android
-    shadowColor: '#000', // Adds a shadow on iOS
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    marginRight: 12,
-  },
-  trashButton: {
-    padding: 10,
-  },
-  buttonRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  details: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  checkOutButton: {
-    backgroundColor: '#4caf50',
-    padding: 16,
-    alignItems: 'center',
-    borderRadius: 8,
-    marginTop: 16,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-  },
-  price: {
-    fontSize: 14,
-    color: '#888',
-    marginTop: 4,
-  },
   emptyText: {
-    fontSize: 18,
-    color: '#888',
     textAlign: 'center',
     marginTop: 20,
+    fontSize: 18,
+  },
+  checkOutButton: {
+    marginTop: 20,
+    padding: 16,
+    backgroundColor: '#007bff',
+    alignItems: 'center',
+    borderRadius: 4,
   },
 });
 

@@ -1,58 +1,58 @@
-import * as React from "react"
-import CartScreen from "../screens/CartScreen"
-import FoodItemsScreen from "../screens/foodItemsGridScreen"
-import { createNativeStackNavigator } from "@react-navigation/native-stack"
+import * as React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import CartScreen from "../screens/CartScreen";
+import FoodItemsScreen from "../screens/foodItemsGridScreen";
 import FoodDetailScreen from "../screens/foodDetailScreen";
 
+import CurrentPastOrdersScreen from "../screens/CurrentAndPastOrdersScren";
 
-const OrderCreationStack = createNativeStackNavigator(); //initlaizing the stack navigator that wil be used
-const foodItemsScreenStack = createNativeStackNavigator()
-const cartStack = createNativeStackNavigator()
+// Initialize stack navigators
+const OrderCreationStack = createNativeStackNavigator();
+const FoodItemsScreenStack = createNativeStackNavigator();
+const CartStack = createNativeStackNavigator();
 const AppTab = createBottomTabNavigator();
 
+// Order stack screen
 function OrderStackScreen() {
-    return (
-        <OrderCreationStack.Navigator>
-            <OrderCreationStack.Screen name="Make Order" component={CartScreen}/>
-        </OrderCreationStack.Navigator>
-    )
+  return (
+    <OrderCreationStack.Navigator>
+      {/* Add screens to the OrderCreationStack here if needed */}
+      <OrderCreationStack.Screen name="Orders" component={CurrentPastOrdersScreen} />
+    </OrderCreationStack.Navigator>
+  );
 }
 
+
+// Food items stack screen
 function FoodItemStackScreen() {
-    return (
-        <foodItemsScreenStack.Navigator>
-            <foodItemsScreenStack.Screen name="Food Items" component={FoodItemsScreen} /> 
-            <foodItemsScreenStack.Screen name= "Details" component={FoodDetailScreen} />
-            {/* placing the screen detail here */}
-        </foodItemsScreenStack.Navigator>
-    )
+  return (
+    <FoodItemsScreenStack.Navigator>
+      <FoodItemsScreenStack.Screen name="Food Items" component={FoodItemsScreen} />
+      <FoodItemsScreenStack.Screen name="Details" component={FoodDetailScreen} />
+    </FoodItemsScreenStack.Navigator>
+  );
 }
 
+// Cart stack screen
 function CartStackScreen() {
-    return (
-        <cartStack.Navigator>
-            <cartStack.Screen name="Cart" component={CartScreen} />
-        </cartStack.Navigator>
-    )
+  return (
+    <CartStack.Navigator mode="modal">
+      <CartStack.Screen name="Cart" component={CartScreen} />
+      <CartStack.Screen name="MakeOrder" component={OrderPlacementScreen} />
+    </CartStack.Navigator>
+  );
 }
 
+// Main app tab navigator
 function AppTabNavigation() {
-    return (
-        <AppTab.Navigator screenOptions={{headerShown: false}}>
-        <AppTab.Screen name="Foods" component={FoodItemStackScreen} />
-       <AppTab.Screen name="CartItems" component={CartStackScreen} />
-        </AppTab.Navigator>
-    )
+  return (
+    <AppTab.Navigator screenOptions={{ headerShown: false }}>
+      <AppTab.Screen name="FoodItems" component={FoodItemStackScreen} />
+      <AppTab.Screen name="Cart" component={CartStackScreen} />
+      <AppTab.Screen name="Order" component={OrderStackScreen} />
+    </AppTab.Navigator>
+  );
 }
 
-//export the tab
-
-export default AppTabNavigation
-//return it all here.
-
-//
-
-
-
-//function fo
+export default AppTabNavigation;

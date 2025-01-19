@@ -1,32 +1,23 @@
-// const foodItem = (foodName, image, description, price) =({
-//     name: Str,
-//     image: image,
-//     description: description, 
-//     price: price
-// })
-
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const FoodItem = ({ imageUrl, price, foodName, description, quantitySelected}) => {
+// FoodItem component to display individual food item details
+const FoodItem = ({ imageUrl, price, foodName, description, quantitySelected }) => {
   return (
     <View style={styles.itemContainer}>
       <Image source={{ uri: imageUrl }} style={styles.image} />
       <Text style={styles.price}>${price}</Text>
       <Text style={styles.name}>{foodName}</Text>
-      <Text style={styles.name}>{description}</Text>
-       {/* Render quantity */}
-       {quantitySelected !== undefined && (
+      <Text style={styles.description}>{description}</Text>
+      {/* Render quantity if provided */}
+      {quantitySelected !== undefined && (
         <Text style={styles.quantity}>Quantity: {quantitySelected}</Text>
       )}
-
     </View>
-
-
   );
 };
 
- 
+// Styles for the FoodItem component
 const styles = StyleSheet.create({
   itemContainer: {
     flex: 1,
@@ -42,37 +33,30 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 8,
+    marginBottom: 10,
   },
   price: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginTop: 5,
+    color: '#333',
+    marginBottom: 5,
   },
-
-  // name: {
-  //   fontSize: 10,
-  //   marginTop: 5
-  // },
-
   name: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 5,
+  },
+  description: {
     fontSize: 14,
     color: '#666',
+    marginBottom: 10,
     textAlign: 'center',
-    marginTop: 5,
+  },
+  quantity: {
+    fontSize: 14,
+    color: '#333',
   },
 });
 
 export default FoodItem;
-
-
-//wrapping object in parenthesis since im returning from it
-// const order = (foodItem, personName, eventDate, orderPrice, instructions) = ({
-//     foodItem:foodItem,
-//     personName: personName,
-//     eventDate:  eventDate,
-//     orderPrice: orderPrice, 
-//     instructions: instructions
-// })
-
-
-
