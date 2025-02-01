@@ -1,2 +1,2 @@
 # EsteeCateringApp
-A cross platform catering app fro events
+A cross platform app that enables users to order for catering events. Powered by React Native and Firebase
