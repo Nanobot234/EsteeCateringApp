@@ -20,11 +20,11 @@ const navigation = useNavigation();
         renderItem={({ item }) => (
 
           <TouchableOpacity
-          onPress={ () => navigation.navigate('Details', {item})}
+          onPress={() => navigation.navigate('Details', {item})}
           style={styles.itemContainer}
           > 
           <FoodItem
-            imageUrl={item.imageUrl}
+            imageUrl={item.imageURL}
             price={item.price}
             foodName={item.foodName}
           />
@@ -48,14 +48,16 @@ const styles = StyleSheet.create({
   columnWrapper: {
     justifyContent: 'space-between'
   },
-  itemContainer:{
-    flex: 1, //item take  equal with in its row here
-    margin: 5,
-    backgroundColor: '#fff',
+  itemContainer: {
+    flex: 1,
+    margin: 10,
+    borderWidth: 1,
     borderRadius: 8,
-    overflow: 'hidden',
-    alignItems: 'center'
-  }
+    borderColor: '#ddd',
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default FoodItemsScreen;

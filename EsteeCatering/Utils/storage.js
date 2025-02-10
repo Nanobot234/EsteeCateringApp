@@ -2,6 +2,7 @@ import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CART_KEY = "cart_items"; //key for the cart items
+const Orders_KEY = "order_items"; //key for the order itemsr
 
 
 /**
@@ -36,5 +37,23 @@ export const clearCart = async () => {
         await AsyncStorage.removeItem(CART_KEY); //remove the cart items
     } catch (error) {
         console.log("Error clearing cart items: ", error);
+    }
+}
+
+export const saveOrders = async (orderItems) => {
+    try {
+        await AsyncStorage.setItem(Orders_KEY, JSON.stringify(orderItems)); //save the order items
+    } catch (error) {
+        console.log("Error saving order items: ", error);
+    }
+}
+
+export const getOrders = async () => {
+    try {
+        const ordersJSON = await AsyncStorage.getItem(Orders_KEY); //get the orders
+        return ordersJSON != null ? JSON.parse(ordersJSON) : []; //parse the orders
+    } catch (error) {
+        console.log("Error getting orders: ", error);
+        return [];
     }
 }

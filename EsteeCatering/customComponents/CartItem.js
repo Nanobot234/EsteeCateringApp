@@ -6,12 +6,12 @@ const CartItem = ({ item, onDecrease, onIncrease, onRemove }) => {
   return (
     <View style={styles.cartItem}>
       {/* Item Image */}
-      <Image source={{ uri: item.imageUrl }} style={styles.image} />
+      <Image source={{ uri: item.imageURL }} style={styles.image} />
       {/* Item Details */}
       <View style={styles.details}>
         <Text style={styles.name}>{item.foodName}</Text>
         <Text style={styles.price}>${item.price.toFixed(2)}</Text>
-        <Text>Quantity: {item.quantitySelected}</Text>
+        <Text style={styles.quantity}>Quantity: {item.quantitySelected}</Text>
 
         {/* Increase and Decrease Buttons */}
         <View style={styles.buttonRow}>
@@ -25,7 +25,7 @@ const CartItem = ({ item, onDecrease, onIncrease, onRemove }) => {
       </View>
       {/* Remove Button */}
       <TouchableOpacity onPress={() => onRemove(item.id)} style={styles.trashButton}>
-        <MaterialIcons name="delete" size={16} color="#ff5252" />
+        <MaterialIcons name="delete" size={24} color="#ff5252" />
       </TouchableOpacity>
     </View>
   );
@@ -33,40 +33,41 @@ const CartItem = ({ item, onDecrease, onIncrease, onRemove }) => {
 
 const styles = StyleSheet.create({
   cartItem: {
-
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
     marginVertical: 8,
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    elevation: 1, // Adds a subtle shadow on Android
-    shadowColor: '#000', // Adds a shadow on iOS
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    
-    // flexDirection: 'row',
-    // justifyContent: 'space-between',
-    // padding: 16,
-    // borderBottomWidth: 1,
-    // borderBottomColor: '#ccc',
+    elevation: 3,
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 5,
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight: 12,
   },
   details: {
     flex: 1,
-    marginLeft: 10,
   },
   name: {
-    fontSize: 16,
+    fontSize: 18, // Increase font size
     fontWeight: 'bold',
+    marginBottom: 8, // Increase spacing between text elements
   },
   price: {
-    fontSize: 14,
+    fontSize: 16, // Increase font size
     color: '#888',
+    marginBottom: 8, // Increase spacing between text elements
+  },
+  quantity: {
+    fontSize: 16, // Increase font size
+    color: '#333',
+    marginBottom: 8, // Increase spacing between text elements
   },
   buttonRow: {
     flexDirection: 'row',
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   trashButton: {
-    marginLeft: 16,
+    marginLeft: 12,
   },
 });
 

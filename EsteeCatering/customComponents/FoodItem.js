@@ -1,11 +1,23 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-
+import { resolveLocalImage } from '../Utils/images';
 // FoodItem component to display individual food item details
+
+// FInd the path value to the local image
+
+
 const FoodItem = ({ imageUrl, price, foodName, description, quantitySelected }) => {
+  const isRemoteImage = imageUrl && imageUrl.startsWith('http'); // Check if the image is remote or local
+  const localImage = !isRemoteImage ? resolveLocalImage(imageUrl) : null;
+
+
   return (
     <View style={styles.itemContainer}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
+      {imageUrl ? (
+        <Image source={localImage} style={styles.image} />
+      ) : (
+        <Text style={styles.noImageText}>No Image Available</Text>
+      )}
       <Text style={styles.price}>${price}</Text>
       <Text style={styles.name}>{foodName}</Text>
       <Text style={styles.description}>{description}</Text>
@@ -34,7 +46,10 @@ const styles = StyleSheet.create({
     height: 100,
     borderRadius: 8,
     marginBottom: 10,
+    resizeMode: 'center',
+    
   },
+
   price: {
     fontSize: 16,
     fontWeight: 'bold',

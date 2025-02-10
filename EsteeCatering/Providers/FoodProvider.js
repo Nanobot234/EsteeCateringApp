@@ -3,15 +3,21 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { saveCartItems, getCartItems, clearCart } from '../Utils/storage';
 import FoodItem from '../models/FoodItem'
+import { burgerImage, pizzaImage, saladImage, resolveLocalImage} from '../Utils/images';
 
 export const FoodContext = createContext();
 
 export const FoodProvider = ({ children }) => {
     //array of available food items to order from, will be updated only be admin or Esther  in this case
+
+    // const burgerImage = '../assets/images/burger.jpeg';
+    // const pizzaImage = '../assets/images/pizza.jpeg';
+    // const saladImage = ('../assets/images/salad.jpeg');
+
     const [foodItems, setFoodItems] = useState([
-      new FoodItem({id:'23', imageURL:'', price:10.49, foodName:'Pizza', description:'Delicious pizza', quantitySelected:0}),
-      new FoodItem({id: '5', imageURL: '...', price: 12, foodName: 'Burger', description: 'Juicy burger', quantitySelected: 0}),
-      new FoodItem({id: '6', imageURL: '...', price: 15, foodName: 'Salad', description: 'Healthy Salad', quantitySelected: 0}),
+      new FoodItem({id:'23', imageURL: pizzaImage, price:10.49, foodName:'Pizza', description:'Delicious pizza', quantitySelected:0}),
+      new FoodItem({id: '5', imageURL: burgerImage, price: 12, foodName: 'Burger', description: 'Juicy burger', quantitySelected: 0}),
+      new FoodItem({id: '6', imageURL: '', price: 15, foodName: 'Salad', description: 'Healthy Salad', quantitySelected: 0}),
     ]);
     //the above array will be a an array of Food items too, need to fix that
     
@@ -111,8 +117,7 @@ const increasCartItemQuantity = (itemId) => {
        * calling the clearCart function to clear the cart in storage.
        */
       const clearCart = () => {
-        setCartItems([]);
-        clearCart(); // Clear the cart in storage
+        setCartItems([]); // Clear the cart items
       };
 
       //add new food item to the food array

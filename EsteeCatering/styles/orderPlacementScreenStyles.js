@@ -6,14 +6,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    width: '100%',
   },
   modalContent: {
-    flex: 1,
     width: '100%',
     backgroundColor: 'white',
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
+  },
+  scrollViewContent: {
+    flexGrow: 1,
   },
   orderItem: {
     flexDirection: 'row',
@@ -26,6 +29,7 @@ const styles = StyleSheet.create({
     shadowColor: '#000', // Adds a shadow on iOS
     shadowOpacity: 0.1,
     shadowRadius: 5,
+    elevation: 3,
   },
   title: {
     fontSize: 20,
@@ -39,10 +43,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   image: {
-    width: 50,
-    height: 50,
-    borderRadius: 5,
-    marginRight: 10,
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight: 12,
   },
   details: {
     flex: 1,
@@ -89,6 +93,21 @@ const styles = StyleSheet.create({
     color: 'red',
     fontSize: 16,
   },
+  name: {
+    fontSize: 18, // Increase font size
+    fontWeight: 'bold',
+    marginBottom: 8, // Increase spacing between text elements
+  },
+  price: {
+    fontSize: 16, // Increase font size
+    color: '#888',
+    marginBottom: 8, // Increase spacing between text elements
+  },
+  quantity: {
+    fontSize: 16, // Increase font size
+    color: '#333',
+    marginBottom: 8, // Increase spacing between text elements
+  },
   placeOrderButton: {
     position: 'absolute',
     bottom: 35,
@@ -112,3 +131,8 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
+
+  // <KeyboardAvoidingView
+  //       style={styles.modalContainer}
+  //       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+  //     ></KeyboardAvoidingView>

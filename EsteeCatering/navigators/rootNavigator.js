@@ -4,8 +4,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CartScreen from "../screens/CartScreen";
 import FoodItemsScreen from "../screens/foodItemsGridScreen";
 import FoodDetailScreen from "../screens/foodDetailScreen";
-
-import CurrentPastOrdersScreen from "../screens/CurrentAndPastOrdersScren";
+import OrderPlacementScreen from "../screens/OrderPlacementScreen";
+import CurrentPastOrdersScreen from "../screens/CurrentPlacedAndPastOrdersScren";
 
 // Initialize stack navigators
 const OrderCreationStack = createNativeStackNavigator();
@@ -50,7 +50,9 @@ function AppTabNavigation() {
     <AppTab.Navigator screenOptions={{ headerShown: false }}>
       <AppTab.Screen name="FoodItems" component={FoodItemStackScreen} />
       <AppTab.Screen name="Cart" component={CartStackScreen} />
-      <AppTab.Screen name="Order" component={OrderStackScreen} />
+      <AppTab.Screen name="My Orders" component={OrderStackScreen} />
+
+      {/* Place the next navigator here */}
     </AppTab.Navigator>
   );
 }

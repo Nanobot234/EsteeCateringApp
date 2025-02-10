@@ -1,13 +1,18 @@
 // Defines the elements of an order to be made
 import React from 'react';
+import {v4 as uuidv4} from 'uuid';
 
 
 export default class Order {
-  constructor({items = [], total = 0, notes = '', address = '', name = ''}) {
+  constructor({id= uuidv4().slice(0,6),items = [], total = 0, notes = '', name = '',address = '',phoneNumber = ''}) {
+    this.id = id;
     this.items = items;
-    this.total = total;
+    this.total = this.items.reduce((sum, item) => sum + item.price * item.quantitySelected, 0);
     this.notes = notes;
     this.address = address
+    this.name = name;
+    this.phoneNumber = phoneNumber;
+    
   }
 
   //might not be nedded!
