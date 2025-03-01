@@ -5,7 +5,9 @@ import CartScreen from "../screens/CartScreen";
 import FoodItemsScreen from "../screens/foodItemsGridScreen";
 import FoodDetailScreen from "../screens/foodDetailScreen";
 import OrderPlacementScreen from "../screens/OrderPlacementScreen";
-import CurrentPastOrdersScreen from "../screens/CurrentPlacedAndPastOrdersScren";
+import CurrentPastOrdersScreen from "../screens/CurrentPlacedAndPastOrdersScreen";
+import VendorItemsScreen from "../screens/VendorScreens/VendorItemsScreen";
+import UploadOrEditItemScreen from "../screens/VendorScreens/UploadItemScreen";
 
 // Initialize stack navigators
 const OrderCreationStack = createNativeStackNavigator();
@@ -44,11 +46,23 @@ function CartStackScreen() {
   );
 }
 
+function VendorItemsStackScreen() {
+  return (
+    <FoodItemsScreenStack.Navigator>
+      <FoodItemsScreenStack.Screen name="My Items" component={VendorItemsScreen} />
+      <FoodItemsScreenStack.Screen name="UploadEditItem" component={UploadOrEditItemScreen} />
+    </FoodItemsScreenStack.Navigator>
+  );
+}
+
+
+
 // Main app tab navigator
 function AppTabNavigation() {
   return (
     <AppTab.Navigator screenOptions={{ headerShown: false }}>
-      <AppTab.Screen name="FoodItems" component={FoodItemStackScreen} />
+      {/* <AppTab.Screen name="FoodItems" component={FoodItemStackScreen} /> */}
+      <AppTab.Screen name="VendorItems" component={VendorItemsStackScreen} />
       <AppTab.Screen name="Cart" component={CartStackScreen} />
       <AppTab.Screen name="My Orders" component={OrderStackScreen} />
 
