@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import { FoodContext } from '../Providers/FoodProvider';
-import CartItem from '../customComponents/CartItem';
-import OrderPlacementScreen from '../screens/OrderPlacementScreen';
+import { FoodContext } from '../../Providers/FoodProvider';
+import CartItem from '../../customComponents/CartItem';
+import OrderPlacementScreen from './OrderPlacementScreen';
 
 const CartScreen = () => {
   const { cartItems, removeItemFromCart, decreaseCartItemQuantity, increasCartItemQuantity } = useContext(FoodContext);

@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext, useMemo } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { useNavigation, useFocusEffect, useIsFocused } from '@react-navigation/native';
-import { getVendorItems, deleteVendorItem } from '../../Utils/storage';
+import { getVendorItems, deleteVendorItem, saveVendorItem } from '../../Utils/storage';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { VendorItemsContext } from '../../Providers/VendorProvider';
+import { VendorItemsContext,} from '../../Providers/VendorProvider';
+import { deleteVendorItemFromFirestore } from '../../FirebaseManager';
+import { use } from 'react';
 
 const VendorItemsScreen = () => {
-  // const [vendorItems, setItems] = useState([]);
-  const { vendorItems, fetchItems} = useContext(VendorItemsContext);
+   
+  const { vendorItems, fetchItems, setVendorItems, initializeItems } = useContext(VendorItemsContext);
   const navigation = useNavigation();
   const isFocused = useIsFocused();
 
@@ -19,23 +21,37 @@ const VendorItemsScreen = () => {
 
   const handleDeleteItem = async (id) => {
     try {
-      setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+      setVendorItems((prevItems) => prevItems.filter((item) => item.id !== id));
       await deleteVendorItem(id);
+      await deleteVendorItemFromFirestore(id);
       console.log("Item deleted successfully!!");
     } catch (error) {
       console.error("Error deleting item:", error);
     }
   };
 
+  const dependencies = useMemo(() => {
+    return vendorItems.length > 0 ? [isFocused, vendorItems] : [isFocused, []];
+  }, [isFocused, vendorItems]);
+
   // Fetch items when vendorItem changes and when the screen is focused
 
-  useEffect(() => {
-    console.log("Screen is focused");
-    if (isFocused) {
-      fetchItems();
-    }
-  }, [isFocused]);
+  // useEffect(() => {
+  //  // console.log("Screen is focused");
+  //   if (isFocused) {
+  //     fetchItems();
+  //   }
+  // }, dependencies);
   // useEffect(
+
+     useFocusEffect(
+    useCallback(() => {
+       console.log("Screen is focused");
+      if (isFocused && vendorItems) {
+        initializeItems();
+      }
+    }, [isFocused, vendorItems])
+  );
     
   //   //fix this now!!
   //   if(isFocused && ){   

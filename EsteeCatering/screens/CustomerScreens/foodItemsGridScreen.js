@@ -3,10 +3,10 @@
 
 import React, {useContext} from 'react';
 import { View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
-import FoodItem from '../customComponents/FoodItem'; // Import the custom FoodItem component
+import FoodItem from '/Users/nanabonsu/ReactNativeProjects/EsteeCateringApp/EsteeCatering/customComponents/FoodItem.js'; // Import the custom FoodItem component
 import { useNavigation } from '@react-navigation/native';
-import icon from '../assets/images/favicon.png'
-import {FoodContext} from "../Providers/FoodProvider";
+
+import {FoodContext} from "../../Providers/FoodProvider";
 
 const FoodItemsScreen = () => {
 

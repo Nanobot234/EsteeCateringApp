@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const CART_KEY = "cart_items"; //key for the cart items
 const Orders_KEY = "order_items"; //key for the order items
 const VENDOR_ITEMS_KEY = "vendor_items"; //key for the vendor items
+const FIRST_TIME_USER_KEY = "firstTimeUser"; //key for the first time user
 
 
 /**
@@ -138,7 +139,7 @@ export const deleteVendorItem = async (itemId) => {
 
 export const isFirstTimeUser = async () => {
     try {
-        const firstTimeUser = await AsyncStorage.getItem('firstTimeUser');
+        const firstTimeUser = await AsyncStorage.getItem(FIRST_TIME_USER_KEY); //get the first time user
         return firstTimeUser === null ? true : false;
     } catch (error) {
         console.log("Error checking if first time user: ", error);
@@ -152,5 +153,39 @@ export const setFirstTimeUser = async () => {
         await AsyncStorage.setItem('firstTimeUser', 'false');
     } catch (error) {
         console.log("Error setting first time user: ", error);
+    }
+}
+
+
+/**
+ * Checks if the user is signed in by retrieving the 'signedIn' value from AsyncStorage.
+ *
+ * @returns {Promise<boolean>} A promise that resolves to true if the user is signed in, otherwise false.
+ * @throws Will log an error message and return false if there is an issue accessing AsyncStorage.
+ */
+export const UserSignedIn = async () => {
+    try {
+        const signedIn = await AsyncStorage.getItem('signedIn');
+        return signedIn === null ? false : true;
+    } catch (error) {
+        console.log("Error checking if signed in: ", error);
+        return false;
+    }
+}
+
+/**
+ * Sets the signed-in state in AsyncStorage.
+ *
+ * @param {boolean} signedIn - The signed-in state to be saved.
+ * @returns {Promise<void>} A promise that resolves when the state is saved.
+ * @throws Will log an error message if saving the state fails.
+ */
+
+
+export const setSignedInState = async (signedIn) => {
+    try {
+        await AsyncStorage.setItem('signedIn', JSON.stringify(signedIn));
+    } catch (error) {
+        console.log("Error saving signed in state: ", error);
     }
 }

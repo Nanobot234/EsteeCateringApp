@@ -12,13 +12,13 @@ import {
   Image,
   Alert,
 } from 'react-native';
-import { FoodContext } from '../../Providers/FoodProvider';
-import { OrderContext } from '../../Providers/OrderProvider';
+import { FoodContext } from '../Providers/FoodProvider';
+import { OrderContext } from '../Providers/OrderProvider';
 import { useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
 // import Modal from 'react-native-modal';
-import styles from '../../styles/orderPlacementScreenStyles'; // Import the styles
-import { OrderItem } from '../../customComponents/Orderitem&PlacedOrderItem';
+import styles from '../styles/orderPlacementScreenStyles'; // Import the styles
+import { OrderItem } from '../customComponents/Orderitem&PlacedOrderItem';
 // Import common styles
 
 const OrderPlacementScreen = ({ visible, onClose }) => {

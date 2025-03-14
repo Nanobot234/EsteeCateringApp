@@ -1,5 +1,6 @@
 import React from "react";
 
+
 export const burgerImage = '../assets/images/burger.jpeg';
 export const pizzaImage = '../assets/images/pizza.jpeg';
 export const saladImage = '../assets/images/salad.jpeg';
@@ -16,4 +17,5 @@ export const resolveLocalImage = (imageUrl) => {
       default:
         return null;
     }
+
   };

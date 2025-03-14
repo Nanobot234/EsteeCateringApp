@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet} from "react-native";
-import {FoodContext} from "../Providers/FoodProvider";
-import ProductDetailsSection from "../customComponents/ProductDetails";
-import {resolveLocalImage} from "../Utils/images";
+import {FoodContext} from "../../Providers/FoodProvider";
+import ProductDetailsSection from "../../customComponents/ProductDetails";
+import {resolveLocalImage} from "../../Utils/images";
 
 
 

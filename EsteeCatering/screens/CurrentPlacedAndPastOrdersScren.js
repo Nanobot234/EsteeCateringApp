@@ -9,11 +9,11 @@ import {
   Image,
 } from 'react-native';
 import SegmentedControl from '@react-native-segmented-control/segmented-control'; // Install this package if not already installed
-import { OrderContext } from '../../Providers/OrderProvider'; // Import the OrderContext from the OrderProvider
+import { OrderContext } from '../Providers/OrderProvider'; // Import the OrderContext from the OrderProvider
 import { useContext } from 'react';
 import { useEffect } from 'react';
-import {Order} from '../../customComponents/Orderitem&PlacedOrderItem'; // Import the OrderItem component
-import PlacedOrderStyles from '../../styles/PlacedOrdersScreenStyles';
+import {Order} from '../customComponents/Orderitem&PlacedOrderItem'; // Import the OrderItem component
+import PlacedOrderStyles from '../styles/PlacedOrdersScreenStyles';
 
 const CurrentPastOrdersScreen = () => {
 
